@@ -1,0 +1,5 @@
+<mat-form-field appearance="fill" *ngIf="dataList">
+    <mat-select  [(ngModel)]="selectedOption" (selectionChange)="selected($event)">
+      <mat-option *ngFor="let data of dataList" [value]="data.id">{{data.text}}</mat-option>
+    </mat-select>
+  </mat-form-field>

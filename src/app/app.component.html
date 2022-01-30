@@ -1,0 +1,15 @@
+
+<div class="container-fluid">
+  <div class="row p-1">
+    <div class="col text-left">
+<app-select-component (selectedType) ='getSelectedVal($event)' ></app-select-component>
+    </div>
+    <div class="col-5 text-center mt-1"><app-select-week-component (weekChange) = 'getWeekArryList($event)'></app-select-week-component></div>
+    <div class="col text-right"> <div class="toggleHeader">
+      <span class="pr-2 pt-1"> Light  </span> <mat-slide-toggle (click)="themeToggle()"> <span class="pt-1"> Dark </span></mat-slide-toggle>
+    </div></div>
+  </div></div>
+    <app-categorie-component [WeekDates]="WeekDates" [selectedNote]="selectedNotes" ></app-categorie-component>
+
+
+

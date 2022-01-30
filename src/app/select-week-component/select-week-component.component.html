@@ -1,0 +1,1 @@
+<button [ngClass]='weekNum == 1 ? "disable": ""' class="symbolCls" (click)="getDateRangeOfWeek('left',weekNum)"> &#60; </button> Calender Week: {{weekNum}} <button [ngClass]='weekNum == 52 ? "disable": ""'  class="symbolCls" (click)="getDateRangeOfWeek('right',weekNum)"> &#62; </button>

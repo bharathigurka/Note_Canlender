@@ -1,0 +1,203 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$calender-primary: mat.define-palette(mat.$indigo-palette);
+$calender-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$calender-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$calender-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $calender-primary,
+      accent: $calender-accent,
+      warn: $calender-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($calender-theme);
+
+/* You can add global styles to this file, and also import other style files */
+body {
+  --text-color: #222;
+  --bkg-color: #fff;
+  --btn-txt-color: white;
+  --btn-bg-color: rgb(11, 88, 160);
+  --hd-bg-color: #afa5a54d;
+  --hd-bd-color: #252222;
+}
+body.dark-theme {
+  --text-color: #eee;
+  --bkg-color: #252222;
+  --btn-txt-color: white;
+  --btn-bg-color: rgb(11, 88, 160);
+  --hd-bg-color: #afa5a54d;
+  --hd-bd-color: #fff;
+}
+
+body {
+  background: var(--bkg-color);
+}
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar,
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+  background-color: var(--bkg-color);
+  border: 1px solid var(--text-color);
+}
+.mat-slide-toggle-bar {
+  width: 45px !important;
+  height: 24px !important;
+  border-radius: 15px !important;
+}
+.mat-slide-toggle-thumb {
+  position: absolute;
+  content: '';
+  height: 18px !important;
+  width: 18px !important;
+  left: 5px;
+  bottom: -3.8px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+.mat-form-field-flex {
+  border-radius: 0px !important;
+  padding: 0px !important;
+  border: 1px solid !important;
+}
+.mat-form-field-wrapper {
+  padding-bottom: 1px;
+}
+.mat-form-field-infix {
+  padding: 1px !important;
+}
+.mat-table {
+  background: var(--bkg-color);
+}
+.mat-cell,
+.mat-header-cell {
+  font-size: 16px;
+  color: var(--text-color);
+}
+.mat-form-field-underline {
+  bottom: unset !important;
+  position: initial !important;
+}
+.toggleHeader span {
+  color: var(--text-color);
+}
+.mat-card {
+  background: var(--bkg-color);
+  color: var(--text-color);
+  height: 99%;
+  width: 100%;
+  border: 1px solid var(--hd-bd-color);
+  // margin: 10px;
+  font-size: 10px;
+  padding: 0px 10px !important;
+  text-align: left;
+  border-radius: 2px;
+}
+.mat-card-title {
+  margin-bottom: 2px !important;
+  font-size: 12px;
+  font-weight: 500;
+  word-break: break-all;
+}
+.mat-select-panel {
+  background: var(--bkg-color);
+  color: var(--text-color);
+}
+.mat-form-field.mat-focused.mat-primary .mat-select-arrow,
+.mat-select-value {
+  color: var(--text-color);
+  padding: 1px;
+}
+.mat-option-text {
+  color: var(--text-color);
+}
+.mat-form-field {
+  position: unset !important;
+}
+.mat-card-content {
+  margin-left: -7px;
+  margin-right: -7px;
+  font-size: 10px;
+  inline-size: fit-content;
+  word-break: break-all;
+}
+.mat-card-content,
+.mat-card-content {
+  color: var(--text-color);
+  margin-bottom: 1px !important;
+}
+
+.mat-card-header {
+  text-align: end !important;
+  height: 23px;
+  position: relative;
+  width: 100%;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  div {
+    padding-right: 2px;
+    text-align: end;
+  }
+}
+.mat-card-actions {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 45px;
+  line-height: 1.3;
+}
+
+.mat-card-content {
+  height: 100%;
+  margin: -64px 0 -30px;
+  padding: 64px 0 30px;
+  box-sizing: border-box;
+  p {
+    overflow: auto;
+    height: 100%;
+  }
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0px 3px;
+  padding-top: 2px;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+/* Media Query for Mobile Devices */
+@media (min-width: 300px) and (max-width: 480px) {
+  .container-fluid {
+    width: 850px;
+  }
+}
+
+/* Media Query for low resolution  Tablets, Ipads */
+@media (min-width: 481px) and (max-width: 767px) {
+  .container-fluid {
+    width: 850px;
+  }
+}

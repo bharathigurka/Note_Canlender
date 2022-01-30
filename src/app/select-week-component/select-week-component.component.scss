@@ -1,0 +1,17 @@
+.symbolCls {
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  background: #fff;
+  border: 2px solid #666;
+  color: #666;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  padding: 0px 1px 0px 0px;
+}
+.disable {
+  pointer-events: none;
+  cursor: not-allowed;
+  background: #d3cdcd;
+}
