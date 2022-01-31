@@ -14,28 +14,36 @@
 
   <!-- week dates with Note table -->
   <table mat-table [dataSource]="dataSource" class="col-9">
-    <ng-container [matColumnDef]="column" *ngFor="let column of WeekDates; let j= index;">
+    <ng-container [matColumnDef]="column" *ngFor="let column of WeekDates;">
       <th mat-header-cell *matHeaderCellDef>
           {{column}}
       </th>
       <td mat-cell *matCellDef="let element" >
-        <div id="{{column}}{{element.labelId}}" class="card-wrap" *ngIf='(element.labelId == selectedNote) || (selectedNote == 4 )' >
-         <div class="cardSection" *ngFor="let data of element.data">
+        <div id="{{column}}{{element.labelId}}" class="card-wrap" *ngIf='((element.labelId == selectedNote) || (selectedNote == 4 ) ) && element.data.length != 0' >
+         <div class="cardSection" *ngFor="let data of element.data" [ngClass]="data.startDateFormatted === column ? '' : 'dummyCls'" >
+
         <div class="subCardSection" *ngIf='data.startDateFormatted === column'
          id='{{data.id}}{{element.labelId}}' (click)="cardWrap(column, element.labelId,data.id )" >
 
-         <mat-card id='{{data.id}}{{element.labelId}}'  *ngIf='data.startDateFormatted == column'>
+         <mat-card id='{{data.id}}{{element.labelId}}'>
           <mat-card-header class="editBtn">
           <h4 title ="Del" (click)="deleteNote(data.id,element.labelId)"> &#10006;</h4>
-            <h4 title ="Edit" (click)="editNote(data,element.labelId)">&#x270E; </h4>
-            <!-- <h4 title ="Print" (click)="pntNote(data.id)"> &#10006;</h4> -->
+            <!-- <h4 title ="Edit" (click)="editNote(data,element.labelId)">&#x270E; </h4>
+            <h4 title ="Print" (click)="pntNote(data.id)"> &#10006;</h4>  -->
         </mat-card-header>
-          <mat-card-title><span class="numberCircle"> {{data.id}} </span> {{data.title}}</mat-card-title>
-          <mat-card-content title='{{data.summary}}'><p>{{data.summary | slice:0:50}}...</p></mat-card-content>
-          <mat-card-actions>
-            <div>Start Date: {{data.startDateFormatted}}</div>
-            <div>Duration : {{data.durationInDays }} </div>
+          <mat-card-title class="pt-2"><span class="numberCircle"> {{data.id}} </span> {{data.title}} </mat-card-title>
+          <mat-card-content title='{{data.summary}}'><p>{{data.summary}}...</p></mat-card-content>
+          <mat-card-actions class="row cardFooter">
+            <div class="col-9 p-0"> 
+              <div>Start Date: {{data.startDateFormatted}}</div>
+              <div>Duration : {{data.durationInDays }} </div>
+            </div>
+       <div class="col-2 p-0 editBtn">
+        <div title ="Edit" (click)="editNote(data,element.labelId)"> &#x270E; </div>
+       </div>
+            
           </mat-card-actions>
+   
                     </mat-card>
            </div>
           </div>

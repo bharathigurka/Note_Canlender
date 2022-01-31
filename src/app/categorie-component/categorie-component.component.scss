@@ -26,6 +26,9 @@ td.mat-cell,
 th.mat-header-cell {
   border: 1px solid var(--hd-bd-color);
 }
+td.mat-cell:last-of-type {
+  padding-right: 0px !important;
+}
 .numberCircle {
   border-radius: 50%;
   width: 25px;
@@ -48,23 +51,35 @@ th.mat-header-cell {
   &:hover {
     .subCardSection {
       &:nth-of-type(1) {
-        transform: translate(-10px, -10px);
+        transform: translate(0px, 0px);
       }
       &:nth-of-type(2) {
-        transform: translate(15px, 15px);
+        transform: translate(5px, 5px);
       }
       &:nth-of-type(3) {
+        transform: translate(10px, 10px);
+      }
+      &:nth-of-type(4) {
+        transform: translate(15px, 15px);
+      }
+      &:nth-of-type(5) {
         transform: translate(20px, 20px);
       }
     }
     .cardSection {
       &:nth-of-type(1) {
-        transform: translate(-10px, -10px);
+        transform: translate(0px, 0px);
       }
       &:nth-of-type(2) {
-        transform: translate(15px, 15px);
+        transform: translate(5px, 5px);
       }
       &:nth-of-type(3) {
+        transform: translate(10px, 10px);
+      }
+      &:nth-of-type(4) {
+        transform: translate(15px, 15px);
+      }
+      &:nth-of-type(5) {
         transform: translate(20px, 20px);
       }
     }
@@ -75,6 +90,10 @@ th.mat-header-cell {
     // margin-left: 4rem;
     text-align: end !important;
     margin-bottom: 1px;
+  }
+
+  .test {
+    pointer-events: all !important;
   }
   .cardSection {
     position: absolute;
@@ -88,13 +107,26 @@ th.mat-header-cell {
     }
     &:nth-of-type(2) {
       z-index: 3;
-      left: 7px;
-      top: 7px;
+      left: 5px;
+      top: 5px;
     }
     &:nth-of-type(3) {
       z-index: 2;
       left: 10px;
       top: 10px;
+    }
+    &:nth-of-type(4) {
+      z-index: 2;
+      left: 12px;
+      top: 12px;
+    }
+    &:nth-of-type(5) {
+      z-index: 2;
+      left: 15px;
+      top: 15px;
+    }
+    .cardFooter {
+      display: flex;
     }
   }
   .subCardSection {
@@ -104,21 +136,38 @@ th.mat-header-cell {
     position: absolute;
     &:hover {
       cursor: pointer;
-      left: 7px;
-      top: 7px;
     }
     &:first-of-type {
       z-index: 4;
     }
     &:nth-of-type(2) {
       z-index: 3;
-      left: 7px;
-      top: 7px;
+      left: 5px;
+      top: 5px;
     }
     &:nth-of-type(3) {
       z-index: 2;
       left: 10px;
       top: 10px;
     }
+    &:nth-of-type(4) {
+      z-index: 2;
+      left: 12px;
+      top: 12px;
+    }
+    &:nth-of-type(5) {
+      z-index: 2;
+      left: 15px;
+      top: 15px;
+    }
+  }
+  .dummyCls {
+    position: unset;
+    display: none;
+    height: 0;
+    width: 0;
+    z-index: unset;
+    left: 0;
+    top: 0;
   }
 }

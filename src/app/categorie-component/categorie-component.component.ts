@@ -31,9 +31,11 @@ export class CategorieComponentComponent implements OnInit {
         this.forMattedData.push({
           ...a,
           startDateFormatted:
-            new Date(a.startDate).getDate() +
+            new Date(this.convertUnixFormat(a.startDate)).getDate() +
             '.' +
-            Number(new Date(a.startDate).getMonth() + 1),
+            Number(
+              new Date(this.convertUnixFormat(a.startDate)).getMonth() + 1,
+            ),
           durationInDays: Math.ceil(
             (a.endDate - a.startDate) / 1000 / 60 / 60 / 24,
           ),
@@ -46,7 +48,13 @@ export class CategorieComponentComponent implements OnInit {
       });
     });
   }
-  ngOnChanges() {}
+
+  convertUnixFormat(val: number) {
+    return val * 1000;
+  }
+  ngOnChanges() {
+    this.filterData(this.forMattedData, this.WeekDates, this.dataList);
+  }
   filterData(data: [], date: string[] = [], labels: []) {
     let segregatedDataList: any = [];
     labels.forEach((eachLabel: any) => {
@@ -55,8 +63,7 @@ export class CategorieComponentComponent implements OnInit {
         data: data.filter((e: any) => {
           if (
             date.indexOf(e.startDateFormatted) > -1 &&
-            e.labels.indexOf(eachLabel.id) > -1 &&
-            e.durationInDays != 0
+            e.labels.indexOf(eachLabel.id) > -1
           ) {
             return e;
           }
@@ -64,11 +71,14 @@ export class CategorieComponentComponent implements OnInit {
       });
     });
     this.dataSource = segregatedDataList;
-
     return segregatedDataList;
   }
 
   cardWrap(col: string, ele: string, id: string) {
+    const elements = document.getElementsByClassName('dummyCls');
+    while (elements.length > 0) {
+      elements[0]?.parentNode?.removeChild(elements[0]);
+    }
     let oldID = col + ele;
     let newID = '' + id + '' + ele;
     let fragment = document.createDocumentFragment();
@@ -90,16 +100,16 @@ export class CategorieComponentComponent implements OnInit {
     });
   }
   editNote(list: any, ele: number) {
-    const dialogRef = this.dialog.open(DialogComponent, {
+    let dialogRef = this.dialog.open(DialogComponent, {
       width: '50%',
       data: list,
     });
     dialogRef.afterClosed().subscribe((result) => {
       let data: any = this.dataSource;
-      data[result.labels - 1].data.forEach((x: any) => {
+      data[result.labels[0] - 1].data.forEach((x: any) => {
         if (x.id == result.id) {
           x.title = result.title;
-          x.summary = result.title;
+          x.summary = result.summary;
         }
       });
     });

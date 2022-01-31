@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import {
   MatDialog,
   MatDialogRef,
@@ -24,16 +24,18 @@ export class DialogComponent implements OnInit {
     private formBuilder: FormBuilder,
   ) {
     this.formGroup = this.formBuilder.group({
-      id: this.data.id,
-      title: this.data.title,
-      summary: this.data.summary,
-      labels: this.data.labels,
+      id: new FormControl(this.data.id),
+      title: new FormControl(this.data.title),
+      summary: new FormControl(this.data.summary),
+      labels: new FormControl(this.data.labels),
     });
   }
   onCancel(): void {
     this.dialogRef.close(this.post);
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.post = this.data;
+  }
 
   onSubmit(post: any) {
     this.post = post;

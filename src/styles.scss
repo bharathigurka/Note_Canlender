@@ -163,20 +163,30 @@ body {
 }
 .mat-card-actions {
   position: absolute;
+  margin-left: -9px;
   bottom: 0;
   width: 100%;
   height: 45px;
   line-height: 1.3;
 }
-
+.mat-form-field-appearance-legacy .mat-form-field-infix {
+  padding: 2px !important;
+}
+.mat-card > .mat-card-actions:last-child {
+  display: flex;
+}
 .mat-card-content {
   height: 100%;
-  margin: -64px 0 -30px;
-  padding: 64px 0 30px;
+  // margin: -64px 0 -30px;
+  // padding: 64px 0 30px;
   box-sizing: border-box;
   p {
-    overflow: auto;
-    height: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 }
 html,
