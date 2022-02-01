@@ -28,17 +28,19 @@ export class CategorieComponentComponent implements OnInit {
     this.service.getNotesList().subscribe((data: Notes) => {
       let bh = data;
       bh.notes.forEach((a) => {
+        let start = this.convertUnixFormat(a.startDate);
+        let end = this.convertUnixFormat(a.endDate);
         this.forMattedData.push({
           ...a,
           startDateFormatted:
-            new Date(this.convertUnixFormat(a.startDate)).getDate() +
+            new Date(start).getDate() +
             '.' +
-            Number(
-              new Date(this.convertUnixFormat(a.startDate)).getMonth() + 1,
-            ),
-          durationInDays: Math.ceil(
-            (a.endDate - a.startDate) / 1000 / 60 / 60 / 24,
-          ),
+            Number(new Date(start).getMonth() + 1),
+          endDateFormatted:
+            new Date(end).getDate() +
+            '.' +
+            Number(new Date(end).getMonth() + 1),
+          durationInDays: this.getDuration(start, end),
         });
       });
       this.service.getNoteLabelList().subscribe((noteLabel: NoteLabel) => {
@@ -51,6 +53,24 @@ export class CategorieComponentComponent implements OnInit {
 
   convertUnixFormat(val: number) {
     return val * 1000;
+  }
+  getDuration(start: number, end: number) {
+    //  duration for some of the events are 'zero' , i m making it plus one
+    //  1+  Math.ceil(
+    //     (this.convertUnixFormat(a.endDate) - this.convertUnixFormat(a.startDate)) / (1000 * 60 * 60 * 24),
+    //   ),
+    let inDays = 1 + Math.floor((end - start) / 86400000);
+    let weeks = Math.floor(inDays / 7);
+    let days = inDays - weeks * 2;
+
+    var startDay = new Date(start).getDay();
+    let endDay = new Date(end).getDay();
+
+    if (startDay - endDay > 1) days = days - 2;
+    if (startDay == 0 && endDay != 6) days = days - 1;
+    if (endDay == 6 && startDay != 0) days = days - 1;
+
+    return days;
   }
   ngOnChanges() {
     this.filterData(this.forMattedData, this.WeekDates, this.dataList);

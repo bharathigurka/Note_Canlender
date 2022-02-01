@@ -14,29 +14,27 @@
 
   <!-- week dates with Note table -->
   <table mat-table [dataSource]="dataSource" class="col-9">
-    <ng-container [matColumnDef]="column" *ngFor="let column of WeekDates;">
+    <ng-container [matColumnDef]="column" *ngFor="let column of WeekDates; let i = index;">
       <th mat-header-cell *matHeaderCellDef>
           {{column}}
       </th>
       <td mat-cell *matCellDef="let element" >
-        <div id="{{column}}{{element.labelId}}" class="card-wrap" *ngIf='((element.labelId == selectedNote) || (selectedNote == 4 ) ) && element.data.length != 0' >
-         <div class="cardSection" *ngFor="let data of element.data" [ngClass]="data.startDateFormatted === column ? '' : 'dummyCls'" >
-
-        <div class="subCardSection" *ngIf='data.startDateFormatted === column'
+        <div  class="card-wrap" *ngIf='((element.labelId == selectedNote) || (selectedNote == 4 ) ) && element.data.length != 0' >
+         <div id="{{column}}{{element.labelId}}" class="cardSection" *ngFor="let data of element.data" [ngClass]="data.startDateFormatted === column  ? '' : 'dummyCls'"  >
+        <div class="subCardSection" *ngIf='data.startDateFormatted === column ' 
          id='{{data.id}}{{element.labelId}}' (click)="cardWrap(column, element.labelId,data.id )" >
-
-         <mat-card id='{{data.id}}{{element.labelId}}'>
+         <mat-card [style.width.%]="(((column.length + 1)-i)+1) <= data.durationInDays ? (((column.length + 1)-i) == 0?100: ((column.length + 1)-i)* 100 ) : data.durationInDays*100" id='{{i}}'>
           <mat-card-header class="editBtn">
           <h4 title ="Del" (click)="deleteNote(data.id,element.labelId)"> &#10006;</h4>
             <!-- <h4 title ="Edit" (click)="editNote(data,element.labelId)">&#x270E; </h4>
             <h4 title ="Print" (click)="pntNote(data.id)"> &#10006;</h4>  -->
         </mat-card-header>
-          <mat-card-title class="pt-2"><span class="numberCircle"> {{data.id}} </span> {{data.title}} </mat-card-title>
+          <mat-card-title class="pt-2"><span class="numberCircle"> {{data.id}} </span> {{data.title}}</mat-card-title>
           <mat-card-content title='{{data.summary}}'><p>{{data.summary}}...</p></mat-card-content>
           <mat-card-actions class="row cardFooter">
             <div class="col-9 p-0"> 
               <div>Start Date: {{data.startDateFormatted}}</div>
-              <div>Duration : {{data.durationInDays }} </div>
+              <div>Duration : {{data.durationInDays }} days</div>
             </div>
        <div class="col-2 p-0 editBtn">
         <div title ="Edit" (click)="editNote(data,element.labelId)"> &#x270E; </div>
